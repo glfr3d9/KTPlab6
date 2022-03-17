@@ -32,5 +32,10 @@ class JImageDisplay extends JComponent {
 
         displayImage.setRGB(x, y, rgbColor);
     }
+    //метод для получения изображения из другого класса
+    public BufferedImage getDisplayImage() {
+        return displayImage;
+    }
+
 }
 

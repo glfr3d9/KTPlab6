@@ -26,4 +26,8 @@ public class Mandelbrot extends FractalGenerator {
         }
         return -1;
     }
+    //метод, который возвращает имя фрактала
+    public String toString() {
+        return "Mandelbrot";
+    }
 }
