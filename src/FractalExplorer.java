@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import javax.swing.JFileChooser.*;
+import javax.swing.JFileChooser;
 import javax.swing.filechooser.*;
 import javax.swing.JOptionPane;
 
@@ -99,7 +99,8 @@ public class FractalExplorer {
 
     //внутренний класс для обработки событий MouseListener с дисплея
     private class MouseHandler extends MouseAdapter {
-            public void mouseClicked(MouseEvent e) {
+        @Override //переопределение
+        public void mouseClicked(MouseEvent e) {
             int x = e.getX();
             double xCoord = fractal.getCoord(range.x,
                     range.x + range.width, displaySize, x);
@@ -114,7 +115,8 @@ public class FractalExplorer {
 
     //внутренний класс для обработки событий ActionListener
     private class ButtonHandler implements ActionListener {
-            public void actionPerformed(ActionEvent e) {
+        @Override
+        public void actionPerformed(ActionEvent e) {
             String action = e.getActionCommand();
             if (e.getSource() instanceof JComboBox) {
                 JComboBox mySource = (JComboBox) e.getSource();
@@ -136,20 +138,27 @@ public class FractalExplorer {
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
                     java.io.File file = myFileChooser.getSelectedFile();
                     String file_name = file.toString();
+                    if (file_name.endsWith(".png")){
                     try {
                         BufferedImage displayImage = display.getDisplayImage();
                         javax.imageio.ImageIO.write(displayImage, "png", file);
                     } catch (Exception exception) {
                         JOptionPane.showMessageDialog(display, exception.getMessage() + exception.getMessage(), "Cannot Save Image", JOptionPane.ERROR_MESSAGE);
                     }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(display, "Enter the correct format", "Cannot Save Image", JOptionPane.ERROR_MESSAGE);
+
+                    }
                 }
                 else return;
             }
         }
     }
-    //метод для запуска FractalExplorer
+
+        //метод для запуска FractalExplorer
     public static void main(String[] args) {
-        FractalExplorer displayExplorer = new FractalExplorer(600);
+        FractalExplorer displayExplorer = new FractalExplorer(500);
         displayExplorer.createAndShowGUI();
         displayExplorer.drawFractal();
     }
