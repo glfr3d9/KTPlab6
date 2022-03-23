@@ -91,7 +91,9 @@ public class FractalExplorer {
                 int userSelection = myFileChooser.showSaveDialog(display);
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
                     java.io.File file = myFileChooser.getSelectedFile();
-                    String file_name = file.toString();
+                    if (!file.getAbsolutePath().endsWith(".png")){
+                        file = new java.io.File(myFileChooser.getSelectedFile()+".png");
+                    }
                     try {
                         BufferedImage displayImage = display.getDisplayImage();
                         javax.imageio.ImageIO.write(displayImage, "png", file);
